@@ -1,0 +1,38 @@
+<div *ngIf="recipe">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button icon="caret-back" color="primary" defaultHref="recipes"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        {{recipe.name | titlecase}}
+      </ion-title>
+      <ion-button slot="end" routerLink="edit" fill="clear" title="Edit Recipe">
+        <ion-icon slot="icon-only" icon="create-outline"></ion-icon>
+      </ion-button>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content [fullscreen]="true" class="ion-padding">
+    <ion-list>
+      <ion-list-header>INGREDIENTS:</ion-list-header>
+      <div *ngFor="let ingredient of recipe.ingredients">
+        <ion-item>
+          <span>{{ingredient.amount}} {{ingredient.unitOfMeasure}} {{ingredient.name}}</span>
+          <span *ngIf="ingredient.note">, {{ingredient.note}}</span>
+        </ion-item>
+      </div>
+    </ion-list>
+    <br>
+    <ion-list>
+    <ion-list-header>STEPS:</ion-list-header>
+    <br>
+    <div *ngFor="let step of recipe.steps; let i = index">
+      <ion-item>
+        {{i + 1}}. {{step}}
+        <hr>
+      </ion-item>
+      <br>
+      </div>
+    </ion-list>
+  </ion-content>
+  </div>

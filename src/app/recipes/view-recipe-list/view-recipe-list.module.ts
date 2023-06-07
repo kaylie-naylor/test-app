@@ -2,16 +2,17 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab3Page } from './tab3.page';
-import { Tab3PageRoutingModule } from './tab3-routing.module';
+import { ViewRecipeListComponent } from './view-recipe-list.component';
+
+import { ViewRecipeListRoutingModule } from './view-recipe-list-routing.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    Tab3PageRoutingModule
+    ViewRecipeListRoutingModule
   ],
-  declarations: [Tab3Page]
+  declarations: [ViewRecipeListComponent]
 })
-export class Tab3PageModule {}
+export class ViewRecipeListModule {}

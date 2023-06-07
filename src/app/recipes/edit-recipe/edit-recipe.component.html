@@ -1,0 +1,70 @@
+<form autocomplete="off" *ngIf="recipe" #recipeForm="ngForm" (ngSubmit)="submitForm()">
+  <ion-list>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button icon="caret-back" color="primary" title="Discard Changes" defaultHref="recipes/{{recipe._id}}"></ion-back-button>
+        </ion-buttons>
+          <ion-title>Edit Recipe</ion-title>
+          <ion-button slot="end" fill="clear" type="submit" [disabled]="!recipeForm.form.valid" title="Save Changes">
+            <ion-icon slot="icon-only" icon="save-outline"></ion-icon>
+          </ion-button>
+    </ion-toolbar>
+    </ion-header>
+    <ion-item>
+        <ion-input label="Recipe Name:" type="text" name="RecipeName" [(ngModel)]="recipe.name" class="form-control" required />
+    </ion-item>
+    <ion-list>
+      <ion-list-header>INGREDIENTS</ion-list-header>
+      <div *ngFor="let ingredient of recipe.ingredients; let i = index">
+        <ion-item>
+          <ion-input label="Ingredient Name:" type="text" [name]="'Ingredient' + i + 'Name'" [(ngModel)]="ingredient.name" class="form-control" required />
+          <div class="recipe-form-buttons">
+            <ion-button *ngIf="recipe.ingredients.length > 1" slot="end" fill="clear" (click)="removeIngredient(i)">
+              <ion-icon slot="icon-only" icon="close-circle-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-item>
+        <ion-item>
+          <ion-input label="Amount:" type="number" [name]="'Ingredient' + i + 'Amount'" [(ngModel)]="ingredient.amount" class="form-control" required />
+        </ion-item>
+        <ion-item>
+          <ion-input label="Units:" type="text" [name]="'Ingredient' + i + 'UnitOfMeasure'" [(ngModel)]="ingredient.unitOfMeasure" class="form-control" />
+        </ion-item>
+        <ion-item>
+          <ion-input label="Note:" type="text" [name]="'Ingredient' + i + 'Note'" [(ngModel)]="ingredient.note" class="form-control" />
+        </ion-item>
+        <hr>
+      </div>
+      <div class="recipe-form-buttons">
+        <ion-button slot="end" fill="clear" (click)="addIngredient()">
+          <ion-icon slot="icon-only" icon="add-circle-outline" size="large"></ion-icon>
+        </ion-button>        
+      </div>
+      </ion-list>
+    <ion-list lines="full">
+      <ion-list-header>STEPS</ion-list-header>
+      <div *ngFor="let step of recipe.steps; let i = index; trackBy:trackByIdx">     
+        <ion-item>
+          <ion-button *ngIf="recipe.steps.length > 1" slot="end" fill="clear" (click)="removeStep(i)">
+            <ion-icon slot="icon-only" icon="close-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-input label="Step {{i + 1}}:" type="text" [name]="'Step' + i" [(ngModel)]="recipe.steps[i]" class="form-control" required />
+        </ion-item>
+      </div>
+      <hr>
+      <div class="recipe-form-buttons">
+        <ion-button slot="end" fill="clear" (click)="addStep()">
+          <ion-icon slot="icon-only" icon="add-circle-outline" size="large"></ion-icon>
+        </ion-button>    
+      </div>
+      </ion-list>
+
+  </ion-list>
+  <ion-item-divider></ion-item-divider>
+
+    <div class="recipe-form-submission-buttons">
+        <ion-button fill="outline" type="submit" [disabled]="!recipeForm.form.valid" class="btn">Save</ion-button> &nbsp;
+        <ion-button fill="outline" type="button" (click)= "recipeForm.resetForm()" routerLink="/recipes/{{recipe._id}}" class="btn">Cancel</ion-button>
+    </div>
+</form>
